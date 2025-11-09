@@ -1,0 +1,32 @@
+:root {
+  font-family: ui-sans-serif, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+button {
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: var(--panel);
+  color: var(--fg);
+  cursor: pointer;
+}
+button:hover { filter: brightness(1.05); }
+button:focus-visible { outline: 3px solid color-mix(in oklab, var(--primary) 60%, transparent); outline-offset: 2px; }
