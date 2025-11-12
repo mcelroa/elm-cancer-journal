@@ -69,6 +69,7 @@
   border-radius: 12px;
   padding: 1rem;
 }
+.card.editing { border-color: var(--primary); }
 
 .grid {
   display: grid;
@@ -251,6 +252,11 @@ table.table th { color: var(--muted); font-weight: 600; }
 .callout .callout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .25rem .75rem; margin-bottom: .25rem; }
 .callout .callout-sep { height: 1px; background: var(--border); margin: .4rem 0; }
 .fine-print { color: var(--muted); font-size: .9rem; }
+
+/* Edit mode banner */
+.mode-banner { display: flex; align-items: center; gap: .6rem; border: 1px dashed var(--primary); background: color-mix(in oklab, var(--primary) 10%, transparent); padding: .5rem .6rem; border-radius: 8px; margin-bottom: .6rem; }
+.mode-banner svg { color: var(--primary); }
+.mode-banner .mode-text { display: inline-flex; align-items: baseline; gap: .5rem; }
 
 /* History table sizing tweaks */
 @media (max-width: 900px) {

@@ -16,6 +16,7 @@ export function JournalForm({
   onSave: (e: Omit<Entry, "id" | "createdAt" | "updatedAt">) => void;
   onClearEdit?: () => void;
 }) {
+  const isEditing = Boolean(initial);
   const [date, setDate] = useState<string>(initial?.date ?? todayISO());
   const [mood, setMood] = useState<number>(initial?.mood ?? 1);
   const [pain, setPain] = useState<number>(initial?.pain ?? 0);
@@ -74,11 +75,17 @@ export function JournalForm({
   };
 
   return (
-    <form className="card" onSubmit={submit}>
-      {initial && (
-        <div className="muted" style={{ marginBottom: ".5rem" }}>
-          Editing entry for <strong>{formatDate(initial.date)}</strong>.{" "}
-          <button type="button" className="tab" onClick={onClearEdit}>
+    <form className={"card" + (isEditing ? " editing" : "")} onSubmit={submit}>
+      {isEditing && initial && (
+        <div className="mode-banner editing">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M4 20h4l10-10-4-4L4 16v4Zm12.5-11.5-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div className="mode-text">
+            <strong>Editing entry</strong>
+            <span className="muted">{formatDate(initial.date)}</span>
+          </div>
+          <button type="button" className="tab" onClick={onClearEdit} style={{marginLeft:'auto'}}>
             New entry
           </button>
         </div>
@@ -165,9 +172,13 @@ export function JournalForm({
           const existing = getByDate(date);
           const isSame = existing && initial && existing.id === initial.id;
           const overwrite = Boolean(existing && !isSame);
+          let label = "Save Entry";
+          let klass = "primary";
+          if (isEditing && !overwrite) label = "Update Entry";
+          if (overwrite) { label = "Overwrite Entry"; klass = "danger"; }
           return (
-            <button type="submit" className={overwrite ? "danger" : "primary"}>
-              {overwrite ? "Overwrite Entry" : "Save Entry"}
+            <button type="submit" className={klass}>
+              {label}
             </button>
           );
         })()}
