@@ -17,11 +17,9 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 )
 
-// Register service worker (in production builds)
+// Ensure no service worker remains registered (we are not a PWA)
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch((err) => {
-      console.warn('SW registration failed', err)
-    })
-  })
+  navigator.serviceWorker.getRegistrations?.()
+    .then((regs) => regs.forEach((r) => r.unregister()))
+    .catch(() => {})
 }
